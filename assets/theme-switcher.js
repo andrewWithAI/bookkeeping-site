@@ -29,32 +29,129 @@ function applyTheme(themeData) {
     
     // Special handling for dark mode to ensure text contrast
     if (themeData.id === 'dark') {
-        // Ensure text is visible on dark backgrounds
-        document.querySelectorAll('.service-item, .stat-item, .card-content, .content-inner').forEach(el => {
+        // Add a class to the body for dark mode
+        document.body.classList.add('dark-mode');
+        
+        // Apply light text color to all text elements
+        const textElements = [
+            'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'a', 'span', 'li', 'label',
+            '.service-item', '.stat-item', '.card-content', '.content-inner',
+            '.section-text', '.section-intro', '.profession', '.tagline',
+            '.contact-details p', '.contact-details h4', '.stat-label',
+            '.footer-logo p', '.copyright p', '.nav-menu a'
+        ];
+        
+        // Set light text color for all text elements
+        document.querySelectorAll(textElements.join(', ')).forEach(el => {
             el.style.color = '#f5f5f5';
         });
         
-        document.querySelectorAll('.service-item h3, .card-title, .section-title, .stat-number').forEach(el => {
+        // Set white color for headings and important elements
+        document.querySelectorAll('.service-item h3, .card-title, .section-title, .stat-number, .logo h1, .tagline, .footer-logo h2').forEach(el => {
             el.style.color = '#ffffff';
         });
+        
+        // Ensure form inputs have proper contrast
+        document.querySelectorAll('input, textarea').forEach(el => {
+            if (!el.closest('.split-form')) { // Don't change inputs in the contact form that already have styling
+                el.style.color = '#f5f5f5';
+                el.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+                el.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+            }
+        });
     } else {
-        // Reset any inline styles when switching away from dark mode
-        document.querySelectorAll('.service-item, .stat-item, .card-content, .content-inner, .service-item h3, .card-title, .section-title, .stat-number').forEach(el => {
+        // Remove dark mode class
+        document.body.classList.remove('dark-mode');
+        
+        // Reset all inline styles when switching away from dark mode
+        const allElements = [
+            'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'a', 'span', 'li', 'label',
+            '.service-item', '.stat-item', '.card-content', '.content-inner',
+            '.section-text', '.section-intro', '.profession', '.tagline',
+            '.contact-details p', '.contact-details h4', '.stat-label',
+            '.footer-logo p', '.copyright p', '.nav-menu a',
+            '.service-item h3', '.card-title', '.section-title', '.stat-number',
+            '.logo h1', '.tagline', '.footer-logo h2', 'input', 'textarea'
+        ];
+        
+        document.querySelectorAll(allElements.join(', ')).forEach(el => {
             el.style.color = '';
+            el.style.backgroundColor = '';
+            el.style.borderColor = '';
         });
     }
 }
 
-// Load color schemes from JSON file
-async function loadColorSchemes() {
-    try {
-        const response = await fetch('/assets/color-schemes.json');
-        const data = await response.json();
-        return data.schemes;
-    } catch (error) {
-        console.error('Error loading color schemes:', error);
-        return [];
-    }
+// Get color schemes directly (avoiding CORS issues with file:// protocol)
+function loadColorSchemes() {
+    // Return a promise to maintain the same interface
+    return Promise.resolve([
+        {
+            "id": "default",
+            "name": "Default Blue",
+            "colors": {
+                "primary": "#0f4c81",
+                "secondary": "#3a7ca5",
+                "accent": "#16c79a",
+                "dark": "#2c3e50",
+                "light": "#f6f9fc",
+                "text": "#333333",
+                "white": "#ffffff"
+            }
+        },
+        {
+            "id": "purple",
+            "name": "Modern Purple",
+            "colors": {
+                "primary": "#5e3b73",
+                "secondary": "#9d65c9",
+                "accent": "#d789d7",
+                "dark": "#2d2b3a",
+                "light": "#f8f5fd",
+                "text": "#333333",
+                "white": "#ffffff"
+            }
+        },
+        {
+            "id": "green",
+            "name": "Nature Green",
+            "colors": {
+                "primary": "#2e7d32",
+                "secondary": "#4caf50",
+                "accent": "#8bc34a",
+                "dark": "#1b5e20",
+                "light": "#f1f8e9",
+                "text": "#333333",
+                "white": "#ffffff"
+            }
+        },
+        {
+            "id": "dark",
+            "name": "Dark Mode",
+            "colors": {
+                "primary": "#121212",
+                "secondary": "#2d2d2d",
+                "accent": "#bb86fc",
+                "dark": "#000000",
+                "light": "#2a2a2a",
+                "text": "#f5f5f5",
+                "white": "#ffffff"
+            }
+        },
+        {
+            "id": "warm",
+            "name": "Warm Sunset",
+            "colors": {
+                "primary": "#e65100",
+                "secondary": "#f57c00",
+                "accent": "#ffb74d",
+                "dark": "#bf360c",
+                "light": "#fff8e1",
+                "text": "#333333",
+                "white": "#ffffff"
+            }
+        }
+    ]);
 }
 
 // Initialize theme switcher
@@ -68,7 +165,7 @@ async function initThemeSwitcher() {
     // Apply the selected theme
     applyTheme(selectedTheme);
     
-    // If we're on the main index page, populate the theme selector
+    // Set up the theme selector
     const themeSelector = document.getElementById('themeSelector');
     if (themeSelector) {
         // Clear existing options
@@ -106,7 +203,7 @@ async function initThemeSwitcher() {
 function addBackToHomeButton() {
     // Create the button element
     const backButton = document.createElement('a');
-    backButton.href = '/index.html';
+    backButton.href = '../index.html';
     backButton.className = 'back-to-home';
     backButton.innerHTML = '<i class="fas fa-home"></i>';
     backButton.title = 'Back to Home';
