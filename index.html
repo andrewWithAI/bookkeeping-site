@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookkeeping Website Designs</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        /* Base styles */
+        :root {
+            --primary-color: #0f4c81;
+            --secondary-color: #3a7ca5;
+            --accent-color: #16c79a;
+            --light-color: #f6f9fc;
+            --dark-color: #2c3e50;
+            --text-color: #333;
+            --white: #ffffff;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-color);
+            padding: 0;
+            margin: 0;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+        
+        main {
+            padding: 4rem 0;
+        }
+        
+        .designs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .design-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .design-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-image {
+            height: 200px;
+            background-color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 3rem;
+            font-weight: bold;
+        }
+        
+        .card-content {
+            padding: 1.5rem;
+        }
+        
+        .card-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .card-description {
+            margin-bottom: 1.5rem;
+            color: var(--dark-color);
+        }
+        
+        .view-button {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .view-button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+        
+        /* Design-specific colors */
+        .design1 .card-image {
+            background-color: #2c3e50;
+        }
+        
+        .design1 .view-button {
+            background-color: #2c3e50;
+        }
+        
+        .design1 .view-button:hover {
+            background-color: #3498db;
+        }
+        
+        .design2 .card-image {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+        }
+        
+        .design2 .view-button {
+            background: linear-gradient(to right, #1e3c72, #2a5298);
+        }
+        
+        .design2 .view-button:hover {
+            background: linear-gradient(to right, #2a5298, #1e3c72);
+        }
+        
+        .design3 .card-image {
+            background-color: #0f4c81;
+        }
+        
+        .design3 .view-button {
+            background-color: #0f4c81;
+        }
+        
+        .design3 .view-button:hover {
+            background-color: #16c79a;
+        }
+        
+        /* Theme Selector */
+        .theme-selector-container {
+            margin-top: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .theme-selector {
+            padding: 8px 15px;
+            border-radius: 25px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            font-family: inherit;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .theme-selector:hover, .theme-selector:focus {
+            background-color: rgba(255, 255, 255, 0.2);
+            outline: none;
+        }
+        
+        .theme-selector option {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .designs-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Bookkeeping Website Designs</h1>
+            <p class="subtitle">Three unique layouts for a professional bookkeeper's online presence</p>
+            <div class="theme-selector-container">
+                <label for="themeSelector">Color Theme:</label>
+                <select id="themeSelector" class="theme-selector">
+                    <!-- Options will be populated by JavaScript -->
+                </select>
+            </div>
+        </div>
+    </header>
+    
+    <main>
+        <div class="container">
+            <div class="designs-grid">
+                <div class="design-card design1">
+                    <div class="card-image">1</div>
+                    <div class="card-content">
+                        <h2 class="card-title">Modern Minimalist</h2>
+                        <p class="card-description">A clean, single-column layout with fixed navigation, using a blue and white color scheme with subtle animations.</p>
+                        <a href="design1/index.html" class="view-button">View Design</a>
+                    </div>
+                </div>
+                
+                <div class="design-card design2">
+                    <div class="card-image">2</div>
+                    <div class="card-content">
+                        <h2 class="card-title">Card-Based Layout</h2>
+                        <p class="card-description">Content organized in card-like containers with shadow effects, featuring a gradient blue color scheme and tabbed services section.</p>
+                        <a href="design2/index.html" class="view-button">View Design</a>
+                    </div>
+                </div>
+                
+                <div class="design-card design3">
+                    <div class="card-image">3</div>
+                    <div class="card-content">
+                        <h2 class="card-title">Split-Screen Approach</h2>
+                        <p class="card-description">Alternating left/right content blocks with contrasting backgrounds, featuring parallax scrolling effects and animated service icons.</p>
+                        <a href="design3/index.html" class="view-button">View Design</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Thompson Digital Services. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script src="assets/theme-switcher.js"></script>
+</body>
+</html>
